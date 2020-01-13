@@ -18,7 +18,7 @@ export class TraitementService {
   public currentTraitement:Traitement;
   public listeQuestion:Array<Question>;
   public listeQuestionSoin:Array<QuestionSoin>;
-  public listeTraitement:Array<Traitement>;
+  public listeTraitement:Array<Traitement>=[];
   public listeSoin:Array<Soin>;
 
   constructor(
@@ -73,7 +73,7 @@ export class TraitementService {
     if(choix=='D'){
       this.codeQuestion = await choix;
       this.currentQuestion = await this.listeQuestion.find(question => question.code == this.codeQuestion);
-      this.router.navigateByUrl('/tabs/new-traitement/question')
+      this.router.navigateByUrl('question')
     } else {
       const alert = await this.alertController.create({
         header: 'DESOLE',

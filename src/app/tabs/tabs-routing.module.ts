@@ -15,26 +15,6 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../new-traitement/new-traitement.module').then(m => m.NewTraitementPageModule)
-          },
-          {
-            path: 'question',
-            children: [
-              {
-                path: '',
-                loadChildren: () =>
-                    import('../question-traitement/question-traitement.module').then(m => m.QuestionTraitementPageModule)
-              }
-            ]
-          },
-          {
-            path: 'question2',
-            children: [
-              {
-                path: '',
-                loadChildren: () =>
-                    import('../question2-traitement/question2-traitement.module').then(m => m.Question2TraitementPageModule)
-              }
-            ]
           }
         ]
       },

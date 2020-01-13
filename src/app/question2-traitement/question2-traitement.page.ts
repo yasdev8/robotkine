@@ -23,7 +23,7 @@ export class Question2TraitementPage implements OnInit {
     await this.traitementService.analyseReponse(choix).then(async nextQuestion =>{
       //oui on passe à la question suivante
       if(nextQuestion){
-        this.router.navigateByUrl('/tabs/new-traitement/question');
+        this.router.navigateByUrl('question');
         console.log('question')
         //Non on est à la dernière question et on passe à l'analyse
       } else {

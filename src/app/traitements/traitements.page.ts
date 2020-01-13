@@ -22,15 +22,10 @@ export class TraitementsPage implements OnInit {
   //cette méthode se lance à chaque ouverture de l'écran, on récupère la liste des traitements
   async ionViewWillEnter(){
     await this.traitementService.getTraitements();
-    console.log("getTraitement")
   }
 
   goToDetail(traitement:Traitement){
     this.traitementService.currentTraitement=traitement;
-    console.log("this.traitementService.listeTraitement")
-    console.log(this.traitementService.listeTraitement);
-    console.log("traitement")
-    console.log(traitement);
 
     this.router.navigateByUrl('/tabs/traitements/detail');
   }
