@@ -4,7 +4,7 @@ export interface Question {
     description:string;
     choix:Array<Choix>;
     transfert:string;
-    final:string;
+    resultAction:Array<Choix>;
 }
 
 export interface Choix {

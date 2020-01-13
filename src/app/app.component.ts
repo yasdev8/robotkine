@@ -24,10 +24,8 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      //on initialise les soins
-      this.initialisationService.initialisationSoins();
-      //on initialise les questions
-      this.initialisationService.initialisationQuestions();
+      //on initialise les données
+      this.initialisationService.initialiser();
     });
   }
 }

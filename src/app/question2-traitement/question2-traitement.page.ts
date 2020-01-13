@@ -34,4 +34,17 @@ export class Question2TraitementPage implements OnInit {
     });
   }
 
+  //on revient à la page précédente
+  async retour(){
+    if(this.traitementService.currentQuestion.code.length==1){
+      this.router.navigateByUrl('/tabs/new-traitement')
+    } else {
+      this.traitementService.codeQuestion=
+          await this.traitementService.currentQuestion.code.substring(0,this.traitementService.currentQuestion.code.length-1);
+      this.traitementService.currentQuestion= await this.traitementService.listeQuestion
+          .find(question => question.code == this.traitementService.codeQuestion);
+      this.router.navigateByUrl('/tabs/new-traitement/question')
+    }
+  }
+
 }

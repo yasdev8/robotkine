@@ -50,9 +50,11 @@ export class TraitementService {
   }
 
   //méthode qui permet de prendre en compte la réponse à la question
-  async analyseReponse(choix:string){
+  async analyseReponse(reponse:string){
     //on regarde si on lance l'analyse
-    if((this.currentQuestion.final!=null)&&(this.currentQuestion.final.includes(choix))){
+    if((this.currentQuestion.resultAction!=null)
+        &&(this.currentQuestion.resultAction.find(choix =>
+            (choix.code == reponse)&&(choix.titre == 'analyse')))){
       //le choix est présent dans le final, on lance donc l'analyse
       const alert = await this.alertController.create({
         header: 'ANALYSE',
@@ -63,9 +65,22 @@ export class TraitementService {
 
       return false;
 
-    } else {
+    } else if((this.currentQuestion.resultAction!=null)
+        &&(this.currentQuestion.resultAction.find(choix =>
+            (choix.code == reponse)&&(choix.titre == 'avis')))) {
 
-      this.codeQuestion = await this.codeQuestion + choix;
+      //le choix est présent dans le final, on demande l'avis du médecin
+      const alert = await this.alertController.create({
+        header: 'AVIS MEDECIN',
+        message: "votre pathologie nécessite l'avis d'un médecin ...",
+        buttons: ['OK']
+      });
+      await alert.present();
+
+      return false;
+    } else {
+      //on continue les question
+      this.codeQuestion = await this.codeQuestion + reponse;
       this.currentQuestion = await this.listeQuestion.find(question => question.code == this.codeQuestion);
       return true;
     }
