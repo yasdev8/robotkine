@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Question {{traitementService.currentQuestion.code.length}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br><br><br>
+  <h1>{{traitementService.currentQuestion.titre}}</h1>
+  <br><br>
+  <p>{{traitementService.currentQuestion.description}}</p>
+  <br><br>
+
+  <ion-grid class="ion-no-padding ion-no-margin">
+    <!--2 choix-->
+    <ion-row class="ion-no-padding ion-no-margin ligneTotal" *ngIf="traitementService.currentQuestion.choix.length==2">
+      <ion-col class="ion-no-padding ion-no-margin col2buttons">
+        <ion-button expand="block" shape="round" class="butt2"
+                    (click)="analyse(traitementService.currentQuestion.choix[0].code)" color="primary">
+          {{traitementService.currentQuestion.choix[0].titre}}
+        </ion-button>
+      </ion-col>
+      <ion-col class="ion-no-padding ion-no-margin col2buttons">
+        <ion-button expand="block" shape="round" class="butt2"
+                    (click)="analyse(traitementService.currentQuestion.choix[1].code)" color="primary">
+          {{traitementService.currentQuestion.choix[1].titre}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <br><br>
+
+</ion-content>

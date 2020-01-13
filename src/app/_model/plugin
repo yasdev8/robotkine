@@ -1,0 +1,7 @@
+//youtube player
+ionic cordova plugin add cordova-plugin-youtube-video-player
+npm install @ionic-native/youtube-video-player
+
+//Data Storage
+//ionic cordova plugin add cordova-sqlite-storage
+//npm install --save @ionic/storage

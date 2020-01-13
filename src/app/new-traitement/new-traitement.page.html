@@ -1,0 +1,202 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Nouveau soin
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <h2>où avez-vous mal?</h2>
+  <br>
+
+  <ion-list *ngFor="let question of this.listeDouleur">
+    <ion-item (click)="analyse(question.choix[0].code)">
+      {{question.titre}}
+    </ion-item>
+  </ion-list>
+  <!--
+
+  <ion-list>
+    <ion-item-sliding #typeDouleurS>
+      <ion-item>
+        <ion-label>
+          Type de douleur
+        </ion-label>
+        <div slot="end" *ngIf="typeDouleur=='chronique'||typeDouleur=='ponctuel'">
+          <ion-badge slot="end" class="userBadge">{{typeDouleur}}</ion-badge>
+        </div>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option color="primary" (click)="typeDouleurC('chronique',typeDouleurS)">
+          Chronique
+        </ion-item-option>
+        <ion-item-option color="secondary" (click)="typeDouleurC('ponctuel',typeDouleurS)">
+          Ponctuel
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item-options side="start">
+        <ion-item-option color="secondary" (click)="typeDouleurC('annuler',typeDouleurS)">
+          Annuler
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <h2>où avez-vous mal?</h2>
+  <ion-list class="accordeon-list" class="ion-no-padding">
+
+    <ion-item-sliding #teteS (ionSwipe)="teteC(true,teteS)">
+      <ion-item>
+        <ion-label>Tête ou nuque</ion-label>
+        <div slot="end" *ngIf="tete">
+          <ion-badge slot="end" class="userBadge">{{tete?'oui':''}}</ion-badge>
+        </div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option *ngIf="!tete" color="success" class="test" (click)="teteC(true,teteS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Oui&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+        <ion-item-option *ngIf="tete" color="danger" (click)="teteC(true,teteS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Non&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding #dosS (ionSwipe)="dosC(true,dosS)">
+      <ion-item (click)="goDos()">
+        <ion-label>Dos</ion-label>
+        <div slot="end" *ngIf="dos">
+          <ion-badge slot="end" class="userBadge">{{dos?'oui':''}}</ion-badge>
+        </div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option *ngIf="!dos" color="success" (click)="dosC(true,dosS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Oui&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+        <ion-item-option *ngIf="dos" color="danger" (click)="dosC(true,dosS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Non&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding #epauleS (ionSwipe)="epauleC(true,epauleS)">
+      <ion-item>
+        <ion-label>Epaule</ion-label>
+        <div slot="end" *ngIf="epaule">
+          <ion-badge slot="end" class="userBadge">{{epaule?'oui':''}}</ion-badge>
+        </div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option *ngIf="!epaule" color="success" (click)="epauleC(true,epauleS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Oui&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+        <ion-item-option *ngIf="epaule" color="danger" (click)="epauleC(true,epauleS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Non&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding #coudeS (ionSwipe)="coudeC(true,coudeS)">
+      <ion-item>
+        <ion-label>Coude</ion-label>
+        <div slot="end" *ngIf="coude">
+          <ion-badge slot="end" class="userBadge">{{coude?'oui':''}}</ion-badge>
+        </div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option *ngIf="!coude" color="success" (click)="coudeC(true,coudeS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Oui&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+        <ion-item-option *ngIf="coude" color="danger" (click)="coudeC(true,coudeS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Non&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding #mainS (ionSwipe)="mainC(true,mainS)">
+      <ion-item>
+        <ion-label>Poignet ou main</ion-label>
+        <div slot="end" *ngIf="main">
+          <ion-badge slot="end" class="userBadge">{{main?'oui':''}}</ion-badge>
+        </div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option *ngIf="!main" color="success" (click)="mainC(true,mainS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Oui&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+        <ion-item-option *ngIf="main" color="danger" (click)="mainC(true,mainS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Non&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding #bassinS (ionSwipe)="bassinC(true,bassinS)">
+      <ion-item>
+        <ion-label>Hanche ou bassin</ion-label>
+        <div slot="end" *ngIf="bassin">
+          <ion-badge slot="end" class="userBadge">{{bassin?'oui':''}}</ion-badge>
+        </div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option *ngIf="!bassin" color="success" (click)="bassinC(true,bassinS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Oui&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+        <ion-item-option *ngIf="bassin" color="danger" (click)="bassinC(true,bassinS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Non&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding #genouS (ionSwipe)="genouC(true,genouS)">
+      <ion-item>
+        <ion-label>Genou</ion-label>
+        <div slot="end" *ngIf="genou">
+          <ion-badge slot="end" class="userBadge">{{genou?'oui':''}}</ion-badge>
+        </div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option *ngIf="!genou" color="success" (click)="genouC(true,genouS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Oui&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+        <ion-item-option *ngIf="genou" color="danger" (click)="genouC(true,genouS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Non&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding #piedS (ionSwipe)="piedC(true,piedS)">
+      <ion-item>
+        <ion-label>Pied ou cheville</ion-label>
+        <div slot="end" *ngIf="pied">
+          <ion-badge slot="end" class="userBadge">{{pied?'oui':''}}</ion-badge>
+        </div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option *ngIf="!pied" color="success" (click)="piedC(true,piedS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Oui&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+        <ion-item-option *ngIf="pied" color="danger" (click)="piedC(true,piedS)" expandable>
+          &nbsp;&nbsp;&nbsp;&nbsp;Non&nbsp;&nbsp;&nbsp;&nbsp;
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <br>
+
+  <div class="butt">
+    <ion-button type="submit" expand="block" shape="round" (click)="analyse()">Analyse</ion-button>
+  </div>
+
+-->
+
+</ion-content>
