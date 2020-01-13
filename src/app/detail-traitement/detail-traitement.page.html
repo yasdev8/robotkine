@@ -1,9 +1,19 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="retour()">
+        <ion-icon name="arrow-back" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>detail-traitement</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list *ngFor="let soin of traitementService.currentTraitement.listeSoin">
+    <ion-item (click)="goToDetail(soin)">
+      {{soin.titre}}
+      <ion-icon slot="end" name="arrow-forward"></ion-icon>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {SoinsService} from '../_services/soins.service';
 import {Router} from '@angular/router';
 import {Soin} from '../_model/Soin';
+import {TraitementService} from '../_services/traitement.service';
 
 @Component({
   selector: 'app-soins',
@@ -12,16 +12,16 @@ export class SoinsPage implements OnInit {
 
   constructor(
       private router:Router,
-      public soinService:SoinsService
+      public traitementService:TraitementService
   ) {
   }
 
   async ngOnInit() {
-    await this.soinService.getSoins();
+    await this.traitementService.getSoins();
   }
 
   goToDetail(soin:Soin){
-    this.soinService.currentSoin=soin;
+    this.traitementService.currentSoin=soin;
     this.router.navigateByUrl('/tabs/soins/detail');
   }
 }

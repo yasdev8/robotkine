@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {SoinsService} from '../_services/soins.service';
 import {YoutubeVideoPlayer} from '@ionic-native/youtube-video-player/ngx';
 import {AlertController, NavController} from '@ionic/angular';
 import {Router} from '@angular/router';
+import {TraitementService} from '../_services/traitement.service';
 
 @Component({
   selector: 'app-detail-soin',
@@ -12,9 +12,10 @@ import {Router} from '@angular/router';
 export class DetailSoinPage implements OnInit {
 
   constructor(
-      public soinService:SoinsService,
+      public traitementService:TraitementService,
       public youtube:YoutubeVideoPlayer,
       public alertController: AlertController,
+      public navCtrl:NavController,
       private router:Router,
       ) { }
 
@@ -36,7 +37,7 @@ export class DetailSoinPage implements OnInit {
   }
 
   back() {
-    this.router.navigateByUrl('/tabs/soins');
+    this.navCtrl.back();
   }
 
 }

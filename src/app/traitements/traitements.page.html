@@ -7,7 +7,25 @@
 </ion-header>
 
 <ion-content>
+  <ion-list *ngFor="let traitement of this.traitementService.listeTraitement">
+    <ion-item (click)="goToDetail(traitement)">
+      <div class="titleSection ion-padding ion-padding-start">
+        <h5>{{traitement.titre}}</h5>
+        <p class="descText ion-no-margin ion-no-padding">
+          {{(traitement.date.getDate().toString().length==1?'0'+traitement.date.getDate():traitement.date.getDate())+'/'
+        +((traitement.date.getMonth()+1).toString().length==1?'0'+(traitement.date.getMonth()+1):(traitement.date.getMonth()+1))+'/'
+        +traitement.date.getFullYear()}}</p>
+      </div>
 
+      <ion-icon slot="end" name="arrow-forward"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="traitementService.listeTraitement==null||traitementService.listeTraitement.length==0">
+    <br><br><br><br>
+    <h3>Aucun traitement</h3>
+    <br><br><br><br>
+  </div>
 
   <!--bouton hover
   <div class="appstorebutton iphone">

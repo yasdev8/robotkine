@@ -27,8 +27,8 @@ export class Question2TraitementPage implements OnInit {
         console.log('question')
         //Non on est à la dernière question et on passe à l'analyse
       } else {
-        //TODO
-        //this.router.navigateByUrl('/tabs/traitements/detail');
+        // on fait l'analyse ou alors on affiche l'avis du médecin
+        this.router.navigateByUrl('/tabs/traitements/detail', { skipLocationChange: false });
         console.log('analyse')
       }
     });

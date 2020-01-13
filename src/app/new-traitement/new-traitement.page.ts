@@ -34,6 +34,8 @@ export class NewTraitementPage implements OnInit {
     //on liste tous les code initiaux
     await this.traitementService.getQuestions();
     this.listeDouleur = await this.traitementService.listeQuestion.filter(question => question.code==null);
+    console.log("this.listeDouleur")
+    console.log(this.listeDouleur)
   }
 
   analyse(choix:string){

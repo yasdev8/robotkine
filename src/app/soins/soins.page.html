@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngFor="let soin of this.soinService.listeSoin">
+  <ion-list *ngFor="let soin of this.traitementService.listeSoin">
     <ion-item (click)="goToDetail(soin)">
       {{soin.titre}}
       <ion-icon slot="end" name="arrow-forward"></ion-icon>
