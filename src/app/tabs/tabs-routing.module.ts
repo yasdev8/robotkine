@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import {path} from '@angular-devkit/core';
 
 const routes: Routes = [
   {
@@ -8,45 +9,85 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'new-traitement',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+              import('../new-traitement/new-traitement.module').then(m => m.NewTraitementPageModule)
+          },
+          {
+            path: 'question',
+            children: [
+              {
+                path: '',
+                loadChildren: () =>
+                    import('../question-traitement/question-traitement.module').then(m => m.QuestionTraitementPageModule)
+              }
+            ]
+          },
+          {
+            path: 'question2',
+            children: [
+              {
+                path: '',
+                loadChildren: () =>
+                    import('../question2-traitement/question2-traitement.module').then(m => m.Question2TraitementPageModule)
+              }
+            ]
           }
         ]
       },
       {
-        path: 'tab2',
+        path: 'traitements',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+              import('../traitements/traitements.module').then(m => m.TraitementsPageModule)
+          },
+          {
+            path: 'detail',
+            children: [
+              {
+                path: '',
+                loadChildren: () =>
+                    import('../detail-traitement/detail-traitement.module').then(m => m.DetailTraitementPageModule)
+              }
+            ]
           }
         ]
       },
       {
-        path: 'tab3',
+        path: 'soins',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+              import('../soins/soins.module').then(m => m.SoinsPageModule)
+          },
+          {
+            path: 'detail',
+            children: [
+              {
+                path: '',
+                loadChildren: () =>
+                    import('../detail-soin/detail-soin.module').then(m => m.DetailSoinPageModule)
+              }
+            ]
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/traitements',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/traitements',
     pathMatch: 'full'
   }
 ];
