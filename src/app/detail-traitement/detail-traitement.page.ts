@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {TraitementService} from '../_services/traitement.service';
 import {Soin} from '../_model/Soin';
+import * as constantes from '../_animation/pageTransition';
+import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-detail-traitement',
@@ -12,7 +14,8 @@ export class DetailTraitementPage implements OnInit {
 
   constructor(
       public router:Router,
-      public traitementService:TraitementService
+      public traitementService:TraitementService,
+      private nativeTransition:NativePageTransitions
   ) { }
 
   ngOnInit() {
@@ -20,12 +23,14 @@ export class DetailTraitementPage implements OnInit {
 
   goToDetail(soin:Soin){
     this.traitementService.currentSoin=soin;
+    this.nativeTransition.slide(constantes.nativeTransitionOptionsLeft400);
     this.router.navigateByUrl('/tabs/soins/detail');
   }
 
   //on revient à la page précédente
   async retour(){
-      this.router.navigateByUrl('/tabs/traitements')
+    this.nativeTransition.slide(constantes.nativeTransitionOptionsRight400);
+    this.router.navigateByUrl('/tabs/traitements')
   }
 
 }

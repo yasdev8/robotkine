@@ -5,3 +5,7 @@ npm install @ionic-native/youtube-video-player
 //Data Storage
 //ionic cordova plugin add cordova-sqlite-storage
 //npm install --save @ionic/storage
+
+//Native transition page
+ionic cordova plugin add com.telerik.plugins.nativepagetransitions
+npm install --save @ionic-native/native-page-transitions

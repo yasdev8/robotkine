@@ -1,12 +1,9 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Liste traitements
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content>
+  <section class="dark">
+      <h1 class="gradient1">TRAITEMENTS</h1>
+  </section>
   <ion-list *ngFor="let traitement of this.traitementService.listeTraitement">
     <ion-item (click)="goToDetail(traitement)">
       <div class="titleSection ion-padding ion-padding-start">
@@ -26,6 +23,7 @@
     <h3>Aucun traitement</h3>
     <br><br><br><br>
   </div>
+
 
   <!--bouton hover
   <div class="appstorebutton iphone">

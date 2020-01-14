@@ -6,6 +6,8 @@ import {AlertController} from '@ionic/angular';
 import {Traitement} from '../_model/Traitement';
 import {QuestionSoin} from '../_model/QuestionSoin';
 import {Soin} from '../_model/Soin';
+import * as constantes from '../_animation/pageTransition';
+import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +27,7 @@ export class TraitementService {
       public storage:Storage,
       public router:Router,
       public alertController: AlertController,
+      private nativePageTransitions:NativePageTransitions,
     ) {
     //on récupère la liste des question
     this.getQuestions();
@@ -59,7 +62,7 @@ export class TraitementService {
 
   //on récupère la liste des questions dans le storage
   async getTraitements(){
-    if(this.listeTraitement==null){
+    if(this.listeTraitement==[]){
       await this.storage.get("robotkine:listeTraitement").then(async data =>{
         //on récupère la liste des traitements
         data==null?this.listeTraitement=[]:this.listeTraitement = await data;
@@ -73,7 +76,8 @@ export class TraitementService {
     if(choix=='D'){
       this.codeQuestion = await choix;
       this.currentQuestion = await this.listeQuestion.find(question => question.code == this.codeQuestion);
-      this.router.navigateByUrl('question')
+
+      return true;
     } else {
       const alert = await this.alertController.create({
         header: 'DESOLE',
@@ -81,6 +85,8 @@ export class TraitementService {
         buttons: ['OK']
       });
       await alert.present();
+
+      return false;
     }
   }
 
@@ -119,14 +125,6 @@ export class TraitementService {
       };
 
       start();
-
-      //le choix est présent dans le final, on lance donc l'analyse
-      const alert = await this.alertController.create({
-        header: 'ANALYSE',
-        message: "l'analyse est en cours ...",
-        buttons: ['OK']
-      });
-      await alert.present();
 
       return false;
 
@@ -194,6 +192,58 @@ export class TraitementService {
   //enregistrer la liste des traitements
   saveListeTraitement(){
     this.storage.set("robotkine:listeTraitement",this.listeTraitement);
+  }
+
+  //traitement de la réponse à une question
+  async analyseQuestion(source:string,choix:string){
+    let nextQuestion:boolean;
+    await this.analyseReponse(choix).then(async nextQuestion =>{
+      //oui on passe à la question suivante
+      if(nextQuestion){
+        //on va vers la gauche
+        this.nativePageTransitions.flip(constantes.nativeTransitionOptionsLeft400);
+        if(source=='question'){
+          this.router.navigateByUrl('question2');
+        } else {
+          this.router.navigateByUrl('question');
+        }
+        //Non on est à la dernière question et on passe à l'analyse
+      } else {
+        // on fait l'analyse ou alors on affiche l'avis du médecin
+        this.nativePageTransitions.flip(constantes.nativeTransitionOptionsLeft400);
+        this.router.navigateByUrl('/tabs/traitements/detail');
+
+        //le choix est présent dans le final, on lance donc l'analyse
+        const alert = await this.alertController.create({
+          header: 'ANALYSE',
+          message: "l'analyse est en cours ...",
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+    });
+  }
+
+  //traitement du retour d'une question
+  async retourQuestion(source){
+    if(this.currentQuestion.code.length==1){
+      //on slide vers le haut
+      this.nativePageTransitions.flip(constantes.nativeTransitionOptionsRight400);
+      this.router.navigateByUrl('/tabs/new-traitement');
+    } else {
+      this.codeQuestion=
+          await this.currentQuestion.code.substring(0,this.currentQuestion.code.length-1);
+      this.currentQuestion= await this.listeQuestion
+          .find(question => question.code == this.codeQuestion);
+      //flip vers la droite
+      this.nativePageTransitions.flip(constantes.nativeTransitionOptionsRight400);
+      if(source=='question'){
+        this.router.navigateByUrl('question2');
+      } else {
+        this.router.navigateByUrl('question');
+      }
+    }
+
   }
 
 }

@@ -3,6 +3,8 @@ import {YoutubeVideoPlayer} from '@ionic-native/youtube-video-player/ngx';
 import {AlertController, NavController} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {TraitementService} from '../_services/traitement.service';
+import * as constantes from '../_animation/pageTransition';
+import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-detail-soin',
@@ -16,7 +18,7 @@ export class DetailSoinPage implements OnInit {
       public youtube:YoutubeVideoPlayer,
       public alertController: AlertController,
       public navCtrl:NavController,
-      private router:Router,
+      private nativeTransition:NativePageTransitions
       ) { }
 
   ngOnInit() {
@@ -37,6 +39,7 @@ export class DetailSoinPage implements OnInit {
   }
 
   back() {
+    this.nativeTransition.slide(constantes.nativeTransitionOptionsRight400);
     this.navCtrl.back();
   }
 

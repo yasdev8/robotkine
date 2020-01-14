@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {YoutubeVideoPlayer} from '@ionic-native/youtube-video-player/ngx';
 import { IonicStorageModule } from "@ionic/storage";
+import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { IonicStorageModule } from "@ionic/storage";
     StatusBar,
     SplashScreen,
     YoutubeVideoPlayer,
+    NativePageTransitions,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

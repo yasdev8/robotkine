@@ -19,32 +19,12 @@ export class QuestionTraitementPage implements OnInit {
 
   //analyse de la réponse et de la suite
   async analyse(choix:string){
-    let nextQuestion:boolean;
-    await this.traitementService.analyseReponse(choix).then(async nextQuestion =>{
-      //oui on passe à la question suivante
-      if(nextQuestion){
-        this.router.navigateByUrl('question2');
-        console.log('question')
-      //Non on est à la dernière question et on passe à l'analyse
-      } else {
-        // on fait l'analyse ou alors on affiche l'avis du médecin
-        this.router.navigateByUrl('/tabs/traitements/detail', {  });
-        console.log('analyse')
-      }
-    });
+    this.traitementService.analyseQuestion('question',choix);
   }
 
   //on revient à la page précédente
   async retour(){
-    if(this.traitementService.currentQuestion.code.length==1){
-      this.router.navigateByUrl('/tabs/new-traitement')
-    } else {
-      this.traitementService.codeQuestion=
-          await this.traitementService.currentQuestion.code.substring(0,this.traitementService.currentQuestion.code.length-1);
-      this.traitementService.currentQuestion= await this.traitementService.listeQuestion
-          .find(question => question.code == this.traitementService.codeQuestion);
-      this.router.navigateByUrl('/tabs/new-traitement/question2')
-    }
+    this.traitementService.retourQuestion('question');
   }
 
 }

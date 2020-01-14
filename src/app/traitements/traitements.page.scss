@@ -13,7 +13,78 @@
   font-size: 16px;
 }
 
+.header {
+  height: 60px;
+  text-align: center;
+  vertical-align: center;
+}
 
+ion-content {
+  --ion-background-color: #1e2023;
+}
+
+
+
+// Update: September 2016, after a lot of grumbling, decided to simplify this. Cons: The color accuracy has gone down and mostly works on very dark or very light backgrounds. Pros: The code is far simpler and doesn't require doubling-up the text.
+
+@mixin gradient-text($gradient, $bg : 'light') {
+  @supports(mix-blend-mode: lighten) {
+    display: inline-block;
+    position: relative;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+
+      background: unquote($gradient);
+      pointer-events: none;
+    }
+
+    @if ($bg == 'light') {
+      color: #000;
+      background: #fff;
+      mix-blend-mode: multiply;
+
+      &::before {
+        mix-blend-mode: screen;
+      }
+    } @else {
+      color: #fff;
+      background: #000;
+      mix-blend-mode: lighten;
+
+      &::before {
+        mix-blend-mode: multiply;
+      }
+    }
+  }
+}
+
+section.dark {
+  text-align: center;
+  .gradient1 {
+    //color: #fff; // Fallback color
+
+    @include gradient-text('linear-gradient(to right,#26b000, #2fde00, #63ff3a, #8de577)','#1e2023');
+  }
+
+  .gradient2 {
+
+    @include gradient-text('radial-gradient(circle, #23966c, #35e505, #e23b4a, #db0768, #360670)', 'dark');
+  }
+}
+
+.gradient1 {
+  font-size: 30px;
+  margin: 0.5em;
+  opacity: 0.9;
+  //font-family: "Impact", sans-serif;
+  text-align: center;
+  font-weight: bold;
+  font-style: italic;
+}
 
 /***************************************
 css pour les bouton hover
